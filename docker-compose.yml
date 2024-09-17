@@ -2,7 +2,7 @@ version: '3'
 
 services:
   ocsapplication:
-    image: ocsinventory/ocsinventory-docker-image:latest
+    image: ocsinventory/ocsinventory-docker-image:2.12.2
     container_name : ocsinventory-server
     restart: always
     expose:
@@ -12,6 +12,7 @@ services:
       - "ocsreportsdata:/usr/share/ocsinventory-reports/ocsreports/extensions"
       - "varlibdata:/var/lib/ocsinventory-reports"
       - "httpdconfdata:/etc/apache2/conf-available"
+      - "profilesconfdata:/usr/share/ocsinventory-reports/ocsreports/config/profiles"
     environment:
       OCS_DB_SERVER: ocsinventory-db
       OCS_DB_USER: ocsuser
@@ -19,6 +20,7 @@ services:
       OCS_DB_NAME: ocsweb
       # See documentation to set up SSL for MySQL
       OCS_SSL_ENABLED: 0
+      OCS_DBI_PRINT_ERROR: 0
     links:
       - ocsdb
     networks:
@@ -78,32 +80,8 @@ networks:
 
 volumes:
   perlcomdata:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=192.168.0.5,rw,nolock"
-      device: ":/dockerdatastore/ocsinventory-server/ocsinventory_server_perlcomdata"
   ocsreportsdata:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=192.168.0.5,rw,nolock"
-      device: ":/dockerdatastore/ocsinventory-server/ocsinventory_server_ocsreportsdata"
   varlibdata:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=192.168.0.5,rw,nolock"
-      device: ":/dockerdatastore/ocsinventory-server/ocsinventory_server_varlibdata"
   httpdconfdata:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=192.168.0.5,rw,nolock"
-      device: ":/dockerdatastore/ocsinventory-server/ocsinventory_server_httpdconfdata"
   sqldata:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=192.168.0.5,rw,nolock"
-      device: ":/dockerdatastore/ocsinventory-server/ocsinventory_server_sqldata"
+  profilesconfdata:

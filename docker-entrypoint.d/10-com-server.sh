@@ -23,6 +23,7 @@ if [ ! -f ${SRV_CONF_FILE} ]; then
 	sed -i 's/"PATH_TO_LOG_DIRECTORY"/'"${OCS_LOG_DIR//\//\\/}"'/g' ${SRV_CONF_FILE}
 	sed -i 's/"PATH_TO_PLUGINS_PERL_DIRECTORY"/'"${OCS_PERLEXT_DIR//\//\\/}"'/g' ${SRV_CONF_FILE}
 	sed -i 's/"PATH_TO_PLUGINS_CONFIG_DIRECTORY"/'"${OCS_PLUGINSEXT_DIR//\//\\/}"'/g' ${SRV_CONF_FILE}
+	sed -i 's/OCS_DBI_PRINT_ERROR/'"$OCS_DBI_PRINT_ERROR"'/g' ${SRV_CONF_FILE}
 fi
 
 # Replace Variables
